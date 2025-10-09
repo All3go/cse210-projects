@@ -38,7 +38,7 @@ public class Journal
             return;
         }
 
-        entries.Clear(); // remove old entries
+        entries.Clear(); // removes old entries
 
         string[] lines = File.ReadAllLines(filename);
         foreach (string line in lines)
