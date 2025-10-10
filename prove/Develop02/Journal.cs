@@ -19,13 +19,15 @@ public class Journal
         }
     }
 
-    public void SaveToFile(string filename)
+        public void SaveToFile(string filename)
     {
         using (StreamWriter outputFile = new StreamWriter(filename))
         {
             foreach (Entry entry in entries)
             {
-                outputFile.WriteLine($"{entry.Date}|{entry.Prompt}|{entry.Response}");
+                // Attempt to fix extra events to be displayed after save/load
+                string safeResponse = entry.Response.Replace("\r\n", "<br>").Replace("\n", "<br>");
+                outputFile.WriteLine($"{entry.Date}|{entry.Prompt}|{safeResponse}");
             }
         }
     }
@@ -38,7 +40,7 @@ public class Journal
             return;
         }
 
-        entries.Clear(); // removes old entries
+        entries.Clear();
 
         string[] lines = File.ReadAllLines(filename);
         foreach (string line in lines)
@@ -46,11 +48,14 @@ public class Journal
             string[] parts = line.Split('|');
             if (parts.Length == 3)
             {
+                // Restore line breaks when displaying
+                string restoredResponse = parts[2].Replace("<br>", Environment.NewLine);
+
                 Entry entry = new Entry
                 {
                     Date = parts[0],
                     Prompt = parts[1],
-                    Response = parts[2]
+                    Response = restoredResponse
                 };
                 entries.Add(entry);
             }
@@ -58,4 +63,3 @@ public class Journal
     }
 
 }
-
