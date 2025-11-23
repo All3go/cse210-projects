@@ -1,5 +1,19 @@
 using System;
 
+/*
+ * Eternal Quest - Program.cs
+ * Austin Linford
+ *
+ * - Implements required goal types: SimpleGoal, EternalGoal, ChecklistGoal.
+ * - Uses inheritance and polymorphism.
+ * - Encapsulates fields with private members and public properties.
+ * - Allows creating, recording, and displaying goals.
+ * - Displays and tracks user score.
+ * - Save/load goals and score to a text file using a simple serial format.
+ * - ChecklistGoal grants an extra bonus when completed.
+ * - Console-based menu for interacting with the program.
+ * - Notes: All goal types use void RecordEvent(), and points are awarded in GoalManager.
+ */
 class Program
 {
     static void Main()
