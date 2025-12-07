@@ -11,43 +11,45 @@ public class Scripture
         _reference = reference;
         _words = new List<Word>();
 
-        string[] parts = text.Split(' ');
-        foreach (var part in parts)
+        string[] parts = text.Split(" ");
+        foreach (string part in parts)
         {
             _words.Add(new Word(part));
         }
     }
 
-    public void HideRandomWords(int numberToHide)
+    public void HideRandomWords(int count)
     {
         Random rand = new Random();
-        List<Word> visibleWords = _words.FindAll(w => !w.IsHidden());
 
-        for (int i = 0; i < numberToHide && visibleWords.Count > 0; i++)
+        for (int i = 0; i < count; i++)
         {
             int index = rand.Next(_words.Count);
             _words[index].Hide();
-            visibleWords.RemoveAt(index);
         }
     }
 
-    public bool AllWordsHidden()
+    public bool IsCompletelyHidden()
     {
         foreach (Word word in _words)
         {
-            if (!word.IsHidden()) return false;
-
+            if (!word.IsHidden()) 
+            {
+                return false;
+            }
         }
         return true;
     }
 
     public string GetDisplayText()
     {
-        string display = _reference.ToString() + " - ";
+        string result = _reference.GetDisplayText() + "\n";
+
         foreach (Word word in _words)
         {
-            display += word.ToString() + " ";
+            result += word.GetText() + " ";
         }
-        return display.Trim();
+
+        return result.Trim();
     }
 }
