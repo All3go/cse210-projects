@@ -5,45 +5,41 @@ namespace MindfulnessProgram
 {
     public class ReflectingActivity : Activity
     {
-        private List<string> _prompts = new List<string>()
+        private List<string> _prompts;
+        private List<string> _questions;
+
+        public ReflectingActivity()
+            : base("Reflecting Activity", "This activity helps you reflect on times when you have shown strength.")
         {
-            "Think of a time when you stood up for someone else.",
-            "Think of a time when you did something really difficult.",
-            "Think of a time when you helped someone in need.",
-            "Think of a time when you did something truly selfless."
-        };
+            _prompts = new List<string>();
+            _prompts.Add("Think of a time when you stood up for someone else.");
+            _prompts.Add("Think of a time when you did something really difficult.");
+            _prompts.Add("Think of a time when you helped someone in need.");
+            _prompts.Add("Think of a time when you did something truly selfless.");
 
-        private List<string> _questions = new List<string>()
+            _questions = new List<string>();
+            _questions.Add("Why was this experience meaningful to you?");
+            _questions.Add("Have you ever done anything like this before?");
+            _questions.Add("How did you get started?");
+            _questions.Add("How did you feel when it was complete?");
+        }
+
+        public override void Start()
         {
-            "Why was this experience meaningful to you?",
-            "Have you ever done anything like this before?",
-            "How did you get started?",
-            "How did you feel when it was complete?",
-            "What made this time different from other times?",
-            "What could you learn from this experience?"
-        };
+            base.Start();
 
-        public ReflectingActivity() :
-            base("Reflecting Activity",
-                 "This activity will help you reflect on times when you have shown strength and resilience.")
-        { }
+            Random rand = new Random();
+            int index = rand.Next(0, _prompts.Count);
+            string prompt = _prompts[index];
 
-        public override void Run()
-        {
-            Start();
-            DateTime end = DateTime.Now.AddSeconds(DurationSeconds);
+            Console.WriteLine();
+            Console.WriteLine("Consider this prompt:");
+            Console.WriteLine("-> " + prompt);
 
-            Console.WriteLine("\nPrompt:");
-            Console.WriteLine($"--- {_prompts[_rand.Next(_prompts.Count)]} ---");
-            Console.WriteLine("\nWhen you have something in mind, press Enter to continue.");
-            Console.ReadLine();
+            Console.WriteLine();
+            Console.WriteLine("Take some time to think about this...");
 
-            while (TimeRemaining(end))
-            {
-                Console.WriteLine(_questions[_rand.Next(_questions.Count)]);
-                PauseWithSpinner(6);
-                Console.WriteLine();
-            }
+            System.Threading.Thread.Sleep(3000);
 
             End();
         }

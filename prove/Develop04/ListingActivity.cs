@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace MindfulnessProgram
 {
@@ -16,31 +15,32 @@ namespace MindfulnessProgram
 
         public ListingActivity() :
             base("Listing Activity",
-                 "This activity helps you reflect on the good things in your life by listing as many as you can.")
+                 "This activity helps you focus on the good things in your life by listing as many as you can.")
         { }
 
-        public override void Run()
+        public override void Start()
         {
-            Start();
-            DateTime end = DateTime.Now.AddSeconds(DurationSeconds);
+            base.Start();
 
-            Console.WriteLine("\nPrompt:");
-            Console.WriteLine($"--- {_prompts[_rand.Next(_prompts.Count)]} ---");
-            Console.Write("\nYou may begin in: ");
-            Countdown(5);
-            Console.WriteLine("\nStart listing! (Press Enter after each item)");
+            Random rand = new Random();
+            string prompt = _prompts[rand.Next(_prompts.Count)];
 
-            List<string> items = new List<string>();
-            while (TimeRemaining(end))
+            Console.WriteLine($"\nPrompt: {prompt}");
+            Console.WriteLine("Start listing items! Press Enter after each one.\n");
+
+            List<string> answers = new List<string>();
+            DateTime endTime = DateTime.Now.AddSeconds(Duration);
+
+            while (DateTime.Now < endTime)
             {
                 Console.Write("> ");
-                string entry = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(entry))
-                    items.Add(entry);
+                string response = Console.ReadLine();
+                answers.Add(response);
             }
 
-            Console.WriteLine($"\nYou listed {items.Count} item(s).");
+            Console.WriteLine($"\nYou listed {answers.Count} item(s)!");
             End();
         }
     }
 }
+

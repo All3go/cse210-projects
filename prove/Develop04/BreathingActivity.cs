@@ -7,23 +7,29 @@ namespace MindfulnessProgram
         public BreathingActivity() :
             base("Breathing Activity",
                  "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.")
-        { }
+        {}
 
-        public override void Run()
+        public override void Start()
         {
-            Start();
-            DateTime end = DateTime.Now.AddSeconds(DurationSeconds);
+            base.Start();
 
-            while (TimeRemaining(end))
+            int inhaleTime = 4;
+            int exhaleTime = 3;
+            int cycleTime = inhaleTime + exhaleTime;
+
+            int cycles = Duration / cycleTime;
+
+            for (int i = 0; i < cycles; i++)
             {
-                Console.Write("\nBreathe in... ");
-                Countdown(4);
-                Console.Write("\nBreathe out... ");
-                Countdown(6);
-                Console.WriteLine();
+                Console.WriteLine("\nBreathe in...");
+                System.Threading.Thread.Sleep(inhaleTime * 1000);
+
+                Console.WriteLine("Breathe out...");
+                System.Threading.Thread.Sleep(exhaleTime * 1000);
             }
 
             End();
         }
     }
 }
+

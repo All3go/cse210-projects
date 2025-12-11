@@ -7,9 +7,9 @@ namespace MindfulnessProgram
     {
         static void Main(string[] args)
         {
-            bool exit = false;
+            bool running = true;
 
-            while (!exit)
+            while (running)
             {
                 Console.Clear();
                 Console.WriteLine("Welcome to the Mindfulness Program!");
@@ -36,7 +36,7 @@ namespace MindfulnessProgram
                         break;
                     case "4":
                         Console.WriteLine("Thank you, we hope you were able to relax. Goodbye!");
-                        exit = true;
+                        running = false;
                         break;
                     default:
                         Console.WriteLine("Invalid choice. Press Enter to continue.");
@@ -44,9 +44,9 @@ namespace MindfulnessProgram
                         break;
                 }
 
-                if (!exit && activity != null)
+                if (activity != null)
                 {
-                    activity.Run();
+                    activity.Start();
                     Console.WriteLine("\nPress Enter to return to the main menu.");
                     Console.ReadLine();
                 }
