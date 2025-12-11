@@ -2,23 +2,19 @@ using System;
 
 public abstract class Goal
 {
-    private string _name;
-    private string _description;
-    private int _points;
+    public string Name;
+    public string Description;
+    public int Points;
 
-    public string Name => _name;
-    public string Description => _description;
-    public int Points => _points;
-
-    public Goal(string name, string description, int points)
+    public Goal(string name, string desc, int points)
     {
-        _name = name;
-        _description = description;
-        _points = points;
+        Name = name;
+        Description = desc;
+        Points = points;
     }
 
     public abstract void RecordEvent();
     public abstract bool IsComplete();
     public abstract string GetStatus();
-    public abstract string GetSaveString();
+    public abstract string SaveData();
 }

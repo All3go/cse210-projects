@@ -2,60 +2,45 @@ using System;
 
 public class ChecklistGoal : Goal
 {
-    private int _targetCount;
-    private int _currentCount;
+    private int _target;
+    private int _count;
     private int _bonus;
 
-    public ChecklistGoal(
-        string name,
-        string description,
-        int points,
-        int targetCount,
-        int bonus,
-        int currentCount = 0)
-        : base(name, description, points)
+    public ChecklistGoal(string name, string desc, int points,
+                         int target, int bonus, int count = 0)
+        : base(name, desc, points)
     {
-        _targetCount = targetCount;
-        _currentCount = currentCount;
+        _target = target;
+        _count = count;
         _bonus = bonus;
     }
 
     public override void RecordEvent()
     {
-        _currentCount++;
+        _count++;
     }
 
-    public bool CompletedThisEvent()
+    public override bool IsComplete()
     {
-        return _currentCount == _targetCount;
+        return _count >= _target;
     }
-
-    public int GetBonus()
-    {
-        return _bonus;
-    }
-
-    public int GetCurrentCount()
-    {
-        return _currentCount;
-    }
-
-    public int GetTargetCount()
-    {
-        return _targetCount;
-    }
-
-    public override bool IsComplete() => _currentCount >= _targetCount;
 
     public override string GetStatus()
     {
-        string check = IsComplete() ? "[X]" : "[ ]";
-        return $"{check} {Name} ({Description}) --- Completed {_currentCount}/{_targetCount}";
+        return $"{(IsComplete() ? "[X]" : "[ ]")} {Name} ({Description}) — {_count}/{_target}";
     }
 
-    public override string GetSaveString()
+    public override string SaveData()
     {
-        return $"ChecklistGoal|{Name}|{Description}|{Points}|{_targetCount}|{_bonus}|{_currentCount}";
+        return $"Checklist|{Name}|{Description}|{Points}|{_target}|{_bonus}|{_count}";
+    }
+
+    public int GetCount() => _count;
+    public int GetTarget() => _target;
+    public int GetBonus() => _bonus;
+
+    public bool JustCompleted()
+    {
+        return _count == _target;
     }
 }
-

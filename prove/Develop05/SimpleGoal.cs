@@ -2,28 +2,31 @@ using System;
 
 public class SimpleGoal : Goal
 {
-    private bool _isComplete;
+    private bool _done;
 
-    public SimpleGoal(string name, string description, int points, bool isComplete = false)
-        : base(name, description, points)
+    public SimpleGoal(string name, string desc, int points, bool done = false)
+        : base(name, desc, points)
     {
-        _isComplete = isComplete;
+        _done = done;
     }
 
     public override void RecordEvent()
     {
-        _isComplete = true;
+        _done = true;
     }
 
-    public override bool IsComplete() => _isComplete;
+    public override bool IsComplete()
+    {
+        return _done;
+    }
 
     public override string GetStatus()
     {
-        return $"[ {(IsComplete() ? "X" : " ")} ] {Name} ({Description})";
+        return (_done ? "[X]" : "[ ]") + $" {Name} ({Description})";
     }
 
-    public override string GetSaveString()
+    public override string SaveData()
     {
-        return $"SimpleGoal|{Name}|{Description}|{Points}|{_isComplete}";
+        return $"Simple|{Name}|{Description}|{Points}|{_done}";
     }
 }

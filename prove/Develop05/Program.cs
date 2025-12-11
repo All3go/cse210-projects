@@ -1,19 +1,5 @@
 using System;
 
-/*
- * Eternal Quest - Program.cs
- * Austin Linford
- *
- * - Implements required goal types: SimpleGoal, EternalGoal, ChecklistGoal.
- * - Uses inheritance and polymorphism.
- * - Encapsulates fields with private members and public properties.
- * - Allows creating, recording, and displaying goals.
- * - Displays and tracks user score.
- * - Save/load goals and score to a text file using a simple serial format.
- * - ChecklistGoal grants an extra bonus when completed.
- * - Console-based menu for interacting with the program.
- * - Notes: All goal types use void RecordEvent(), and points are awarded in GoalManager.
- */
 class Program
 {
     static void Main()
@@ -25,25 +11,22 @@ class Program
 
         while (choice != 6)
         {
-            Console.WriteLine("\nMenu Options:");
-            Console.WriteLine("1. Create New Goal");
-            Console.WriteLine("2. Show Goals");
-            Console.WriteLine("3. Record Event");
-            Console.WriteLine("4. Show Score");
-            Console.WriteLine("5. Save/Load Goals");
+            Console.WriteLine("\nMenu:");
+            Console.WriteLine("1. Create a new goal");
+            Console.WriteLine("2. Show goals");
+            Console.WriteLine("3. Record an event");
+            Console.WriteLine("4. Show score");
+            Console.WriteLine("5. Save/Load");
             Console.WriteLine("6. Quit");
 
-            Console.Write("Choose an option: ");
+            Console.Write("Choose: ");
             choice = int.Parse(Console.ReadLine());
 
-            switch (choice)
-            {
-                case 1: CreateGoal(manager); break;
-                case 2: manager.ShowGoals(); break;
-                case 3: manager.RecordEvent(); break;
-                case 4: manager.DisplayScore(); break;
-                case 5: SaveLoadMenu(manager); break;
-            }
+            if (choice == 1) CreateGoal(manager);
+            else if (choice == 2) manager.ShowGoals();
+            else if (choice == 3) manager.RecordEvent();
+            else if (choice == 4) manager.DisplayScore();
+            else if (choice == 5) SaveLoadMenu(manager);
         }
 
         Console.WriteLine("\nGoodbye!");
@@ -51,12 +34,12 @@ class Program
 
     static void CreateGoal(GoalManager m)
     {
-        Console.WriteLine("\nTypes of goals:");
+        Console.WriteLine("\nGoal Types:");
         Console.WriteLine("1. Simple Goal");
         Console.WriteLine("2. Eternal Goal");
         Console.WriteLine("3. Checklist Goal");
 
-        Console.Write("Which type? ");
+        Console.Write("Choose: ");
         int type = int.Parse(Console.ReadLine());
 
         Console.Write("Name: ");
@@ -78,7 +61,7 @@ class Program
         }
         else
         {
-            Console.Write("Target count: ");
+            Console.Write("Target amount: ");
             int target = int.Parse(Console.ReadLine());
 
             Console.Write("Bonus: ");
@@ -95,10 +78,12 @@ class Program
         Console.Write("Choose: ");
         int option = int.Parse(Console.ReadLine());
 
-        Console.Write("File name: ");
+        Console.Write("Filename: ");
         string file = Console.ReadLine();
 
-        if (option == 1) m.Save(file);
-        else m.Load(file);
+        if (option == 1)
+            m.Save(file);
+        else
+            m.Load(file);
     }
 }

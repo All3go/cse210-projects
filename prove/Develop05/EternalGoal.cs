@@ -2,23 +2,28 @@ using System;
 
 public class EternalGoal : Goal
 {
-    public EternalGoal(string name, string description, int points)
-        : base(name, description, points)
+    public EternalGoal(string name, string desc, int points)
+        : base(name, desc, points)
     {
     }
 
     public override void RecordEvent()
-    {}
+    {
+    
+    }
 
-    public override bool IsComplete() => false;
+    public override bool IsComplete()
+    {
+        return false;
+    }
 
     public override string GetStatus()
     {
         return $"[∞] {Name} ({Description})";
     }
 
-    public override string GetSaveString()
+    public override string SaveData()
     {
-        return $"EternalGoal:|{Name}|{Description}|{Points}";
+        return $"Eternal|{Name}|{Description}|{Points}";
     }
 }
