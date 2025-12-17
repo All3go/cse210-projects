@@ -22,7 +22,7 @@ public class Event
 
     public virtual string GetFullDetails()
     {
-        return GetStandardDetails(); // base class returns standard; derived classes will add more
+        return GetStandardDetails();
     }
 
     public virtual string GetShortDescription()
